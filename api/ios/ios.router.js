@@ -2,8 +2,9 @@
 
 const router = require('koa-router')();
 const handlers = require('./ios.handlers');
-const middleware = require('../middleware/params');
+const params = require('../middleware/params');
+const cache = require('../middleware/cache');
 
-router.get('/ios', middleware.validateiOSParams, handlers.getReviews);
+router.get('/ios', params.validateiOSParams, cache.setCache, handlers.getReviews);
 
 module.exports = router;
