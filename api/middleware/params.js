@@ -6,10 +6,10 @@ exports.validateiOSParams = function*(next) {
 
   let params = this.query;
 
-  if (tooly.existy(params.appid) && tooly.existy(params.appname)) {
+  if (tooly.existy(params.appid)) {
     yield next;
   } else {
-    this.body = {status: 'failed', message: 'You must provide both appid and appname query params', response: []}
+    this.body = {status: 'failed', message: 'You must provide an appid query param', response: []}
   }
 
 };

@@ -7,9 +7,9 @@ const iOSScrapper = function (_baseUrl, _httpClient) {
   this.httpClient = _httpClient;
 };
 
-iOSScrapper.prototype.scrape = function(appName, appId) {
+iOSScrapper.prototype.scrape = function(appId) {
 
-  let url = this.baseUrl + appName + "/" + appId;
+  let url = this.baseUrl + appId;
 
   return new Promise((resolve, reject) => {
 
@@ -39,7 +39,7 @@ iOSScrapper.prototype.scrape = function(appName, appId) {
 
     })
       .catch(err => {
-        reject({status: 'failed', message: err, reviews: [] });
+        resolve({status: 'failed', message: 'Error requesting app reviews. AppID is invalid', reviews: [] });
       })
   });
 
