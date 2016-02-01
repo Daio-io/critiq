@@ -6,4 +6,4 @@ Get Reviews for your App Store and Google Play Store apps
 
 /ios with and appid like so:
 
-```https://critiq-api.herokuapp.com/ios?appid=id560458506```
+    https://critiq-api.herokuapp.com/ios?appid=id560458506
