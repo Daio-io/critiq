@@ -1,6 +1,6 @@
 'use strict';
 
-const Scrapper = require('../lib/ios.scrapper');
+const Scrapper = require('../lib/ios.rss.scrapper');
 const httpClient = require('../lib/reviewHttpClient');
 const config = require('./app.config');
 
