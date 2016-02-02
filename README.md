@@ -6,4 +6,4 @@ Get Reviews for your App Store and Google Play Store apps
 
 route /ios with an appid param like so:
 
-    https://critiq-api.herokuapp.com/ios?appid=id560458506
+    https://critiq-api.herokuapp.com/ios?appid=560458506
