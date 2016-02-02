@@ -19,7 +19,7 @@ iOSScrapper.prototype.scrape = function(appId) {
         let reviews = data.feed.entry;
 
         let appname = reviews[0]['im:name'].label;
-        let response = {status: 'failed', message: 'Request successful', app: appname, reviews: []};
+        let response = {status: 'success', message: 'Request successful', app: appname, reviews: []};
 
         for (let i = 1, len = reviews.length - 1; i < len; i++) {
           let review = {};
