@@ -24,6 +24,7 @@ iOSScrapper.prototype.scrape = function(appId) {
         for (let i = 1, len = reviews.length - 1; i < len; i++) {
           let review = {};
           review.app_version = reviews[i]['im:version'].label;
+          review.author = reviews[i].author.name.label;
           review.stars = reviews[i]['im:rating'].label;
           review.short = reviews[i]['title'].label;
           review.full = reviews[i]['content'].label;
