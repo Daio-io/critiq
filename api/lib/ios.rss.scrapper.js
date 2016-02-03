@@ -8,7 +8,7 @@ class iOSScrapper {
   }
 
   scrape(appId) {
-    let url = this.baseUrl + appId + '/sortBy=mostRecent/json';
+    let url = `${this.baseUrl}${appId}/sortBy=mostRecent/json`;
 
     return new Promise(resolve => {
 
@@ -33,7 +33,7 @@ class iOSScrapper {
           }
           resolve(response);
         } else {
-          resolve({status: 'failed', message: 'Error requesting app reviews. AppID is invalid', reviews: [] });
+          resolve({status: 'emnpty', message: 'No reviews found for appid', reviews: [] });
         }
 
       })
