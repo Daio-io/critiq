@@ -14,16 +14,17 @@ iOSScrapper.prototype.scrape = function(appId) {
 
     this.httpClient.get(url).then(body => {
 
-      let data =  JSON.parse(body);
+      let data = JSON.parse(body);
       if (data.feed.entry) {
         let reviews = data.feed.entry;
 
         let appname = reviews[0]['im:name'].label;
         let response = {status: 'success', message: 'Request successful', app: appname, reviews: []};
 
+        // Start at 1 because the first entity is not a review
         for (let i = 1, len = reviews.length - 1; i < len; i++) {
           let review = {};
-          review.app_version = reviews[i]['im:version'].label;
+          review.version = reviews[i]['im:version'].label;
           review.author = reviews[i].author.name.label;
           review.stars = reviews[i]['im:rating'].label;
           review.short = reviews[i]['title'].label;
