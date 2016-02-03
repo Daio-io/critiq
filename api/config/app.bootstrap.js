@@ -6,7 +6,7 @@ const config = require('./app.config');
 
 module.exports = function(app) {
 
-  app.context.scrapper = new Scrapper(config.IOS_URL, httpClient);
+  app.context.Scrapper = new Scrapper(config.IOS_URL, httpClient);
   app.context.cache = config.CACHE;
 
 };

@@ -1,7 +1,6 @@
 'use strict';
 
-const tooly = require('tooly');
-const paramFilter = require('../lib/param.filter');
+const ParamFilter = require('../lib/param.filter');
 
 exports.getReviews = function *() {
 
@@ -9,12 +8,12 @@ exports.getReviews = function *() {
   let version = this.query.version;
   let stars = this.query.stars;
 
-  let data = yield this.scrapper.scrape(appId);
+  let data = yield this.Scrapper.scrape(appId);
 
-  // TODO- change this solution
-  let filter = paramFilter.filterFunction(data.reviews);
-  filter('version', version);
-  data.reviews = filter('stars', stars);
+  let ParamFilter = new this.ParamFilter(data.reviews);
+  data.reviews = ParamFilter.filter('version', version)
+    .filter('stars', stars)
+    .results();
 
   this.body = data;
 

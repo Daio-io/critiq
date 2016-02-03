@@ -2,18 +2,25 @@
 
 const tooly = require('tooly');
 
-exports.filterFunction = function(_data) {
+class ParamFilter {
 
-  let data = _data;
-  return function(filter, filterValue) {
+  constructor(_data) {
+    this.data = _data;
+  }
 
+  filter(filter, filterValue) {
     if (tooly.existy(filterValue)) {
-      data = data.filter(item => {
+      this.data = this.data.filter(item => {
         return item[filter] === filterValue;
       });
     }
-
-    return data;
+    return this;
   }
 
-};
+  results() {
+    return this.data;
+  }
+
+}
+
+module.exports = ParamFilter;

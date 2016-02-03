@@ -2,55 +2,62 @@
 
 const cheerio = require('cheerio');
 
-const iOSScrapper = function (_baseUrl, _httpClient) {
-  this.baseUrl = _baseUrl;
-  this.httpClient = _httpClient;
-};
+class iOSScrapper {
 
-iOSScrapper.prototype.scrape = function(appId) {
+  constructor(_baseUrl, _httpClient) {
+    this.baseUrl = _baseUrl;
+    this.httpClient = _httpClient;
+  }
 
-  let url = this.baseUrl + appId;
+  scrape(appId) {
 
-  return new Promise(resolve => {
+    let url = this.baseUrl + appId;
 
-    // TODO - working: tidy up everything
-    this.httpClient.get(url).then(body => {
+    return new Promise(resolve => {
 
-      let $ = cheerio.load(body);
-      let customerReviews = $('.customer-review');
-      let reviewCount = customerReviews.find('.customerReviewTitle').length;
+      // TODO - working: tidy up everything
+      this.httpClient.get(url).then(body => {
 
-      if (reviewCount > 0) {
-        let results = [];
+        let $ = cheerio.load(body);
+        let customerReviews = $('.customer-review');
+        let reviewCount = customerReviews.find('.customerReviewTitle').length;
 
-        for (let i = 0; i < reviewCount; i++) {
-          let review = customerReviews.find('.customerReviewTitle').get(i);
-          let content = customerReviews.find('.content')[i];
-          let starRating = customerReviews.find('.rating')[i].attribs['aria-label'];
-          let star = starRating ? starRating.replace(/(?=star)\w+/, '').trim() : '';
-          let authorData = customerReviews.find('.user-info')[i];
-          let author = authorData.children[0].data.replace('by', '');
+        if (reviewCount > 0) {
+          let results = [];
 
-          let rev = {short: review.children[0].data.trim(),
-            full: content.children[0].data.trim(),
-            star: star,
-            author: author.trim() };
+          for (let i = 0; i < reviewCount; i++) {
+            let review = customerReviews.find('.customerReviewTitle').get(i);
+            let content = customerReviews.find('.content')[i];
+            let starRating = customerReviews.find('.rating')[i].attribs['aria-label'];
+            let star = starRating ? starRating.replace(/(?=star)\w+/, '').trim() : '';
+            let authorData = customerReviews.find('.user-info')[i];
+            let author = authorData.children[0].data.replace('by', '');
 
-          results.push(rev);
+            let rev = {short: review.children[0].data.trim(),
+              full: content.children[0].data.trim(),
+              star: star,
+              author: author.trim() };
+
+            results.push(rev);
+          }
+
+          resolve({status: 'success', message: 'Reviews found', reviews: results});
+
+        } else {
+          resolve({status: 'empty', message: 'no results found', reviews: [] });
         }
 
-        resolve({status:'success', message: 'Reviews found', reviews: results});
-
-      } else {
-        resolve({status:'empty', message: 'no results found', reviews: [] });
-      }
-
-    })
-      .catch(() => {
-        resolve({status: 'failed', message: 'Error requesting app reviews. AppID is invalid', reviews: [] });
       })
-  });
+        .catch(() => {
+          resolve({status: 'failed', message: 'Error requesting app reviews. AppID is invalid', reviews: [] });
+        })
+    });
 
-};
+  }
+
+;
+
+}
+
 
 module.exports = iOSScrapper;
