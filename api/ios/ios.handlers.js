@@ -10,8 +10,8 @@ exports.getReviews = function *() {
 
   let data = yield this.Scrapper.scrape(appId);
 
-  let ParamFilter = new this.ParamFilter(data.reviews);
-  data.reviews = ParamFilter.filter('version', version)
+  let paramFilter = new ParamFilter(data.reviews);
+  data.reviews = paramFilter.filter('version', version)
     .filter('stars', stars)
     .results();
 
