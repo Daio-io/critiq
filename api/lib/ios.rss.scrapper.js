@@ -33,7 +33,7 @@ class iOSScrapper {
           }
           resolve(response);
         } else {
-          resolve({status: 'emnpty', message: 'No reviews found for appid', reviews: [] });
+          resolve({status: 'empty', message: 'No reviews found for appid', reviews: [] });
         }
 
       })
