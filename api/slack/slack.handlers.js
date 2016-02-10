@@ -4,7 +4,7 @@ const ParamFilter = require('../lib/param.filter');
 
 exports.getReviews = function *() {
 
-  let appId = this.query.appid;
+  let appId = this.query.text;
   let version = this.query.version;
   let stars = this.query.stars;
 
