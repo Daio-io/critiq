@@ -12,7 +12,7 @@ exports.getReviews = function *() {
 
   this.body = {
     response_type: "in_channel",
-    text: "Latest reviews for app: " + data.app,
+    text: "Latest iOS AppStore reviews for app: " + data.app,
     attachments: attachments.splice(0, 5)
   };
 
