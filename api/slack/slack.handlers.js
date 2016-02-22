@@ -7,7 +7,7 @@ exports.getReviews = function *() {
   let data = yield this.Scrapper.scrape(appId);
 
   let attachments = data.reviews.map(data => {
-    return {title: `${data.version} : ${data.stars} stars : ${data.short}`, text: data.full};
+    return {title: `${data.version} : ${data.stars} :star: : ${data.short}`, text: data.full};
   });
 
   this.body = {
